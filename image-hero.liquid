@@ -1,0 +1,229 @@
+<style>
+  
+   {% if section.settings.overlay %}
+  	.slider-row.section--{{section.id}} .overlay_image:before { position: absolute; content: ''; height: 98%; width: 100%; left: 0; top: 0;  
+      background: {{section.settings.overlay_color}}; 
+      background-color: {{section.settings.overlay_color}};
+    }
+  {% endif %}
+  .slider-row.section--{{section.id}} .SectionHeader__Heading , .slider-row.section--{{section.id}} .SectionHeader__Description p {
+    color: {{section.settings.color}} !important;
+  }
+  .slider-row.section--{{section.id}} a.btn {
+  	color: {{section.settings.color_btn}} !important;
+    border-color: {{section.settings.color_border}} !important;
+    background: {{section.settings.color_bg}} !important;
+    margin-top: 10px; padding-left: 15px; padding-right: 15px; min-width: 200px;
+  }
+  .slider-row.section--{{section.id}} a.btn:hover , .slider-row.section--{{section.id}} a.btn:focus {
+  	color: {{section.settings.color_btn_hover}} !important;
+    border-color: {{section.settings.color_border_hover}} !important;
+    background: {{section.settings.color_bg_hover}} !important;
+  }
+  
+  @font-face {
+	font-family: 'roboto bold';
+	src: url("{{'Roboto-Bold.ttf' | asset_url }}") format("truetype");
+}
+	@font-face {
+	font-family: 'roboto light';
+	src: url("{{'Roboto-Light.ttf' | asset_url }}") format("truetype");
+}
+  .slider-row .SectionHeader__Heading{
+  font-family: 'roboto bold';
+  font-size: 46px;
+  text-transform: capitalize;
+  font-weight: 700;
+  }
+  .slider-row .SectionHeader__Description,.slider-row .btn{
+  font-family: 'roboto light';
+  font-size: 24px;
+  font-weight: 300;
+  }
+  .slider-row .SectionHeader__Description p {
+  line-height: 2;
+  
+  }
+  .slider-row .btn{
+  	min-width: 200px;
+    padding: 10px 15px;
+    border-radius: 30px;
+    display: inline-block;
+    font-weight: 300;
+     font-size: 20px;
+  }
+
+  .slider-row { position: relative;}
+  .slde-centered { position: absolute; width: 100%; top: 25%; z-index: 111; }
+  .slde-center { position: absolute; width: 80%; max-width: 60%; left:20%; text-align: center!important;} 
+  .slde-right { right: 140px; max-width: 550px; }
+  .slde-left { left: 60px; max-width: 550px; }
+  .slider-row .SectionHeader__Description { max-width: 100%; width: 100%;  }
+  .slider-row .overlay_image:before { position: absolute; content: ''; height: 98%; width: 100%; left: 0; top: 0;  background: rgba(0, 0, 0, 0.3); background-color: rgba(0, 0, 0, 0.3);}
+  .mobile_img { display: none !important; }
+  @media only screen and (max-width: 767px){
+    /*.slider-row img { min-height: 300px; } */
+    .slde-centered { top: 25%; text-align:center; right: unset; left: unset; max-width: 100%; width: 100%; padding: 40px;}
+    .desktop_img { display: none !important; }
+    .mobile_img { display: block !important; }
+    .slider-row .SectionHeader__Description{font-size:18px;}
+    .slider-row .SectionHeader__Heading{font-size:36px;}
+  }
+  
+  
+  
+</style>
+
+
+
+
+
+<div id="section-custom-slider-{{section.id}}">
+ 
+
+    
+  	<div class="slider-row section--{{section.id}}">
+      <div class = "overlay_image">
+          <img class="desktop_img lazyload "
+          src="{{ section.settings.image | img_url: 'master' }}"
+          alt="{{ section.settings.image.alt | escape }}"style = "min-width:100%; ">
+          <img class="mobile_img lazyload "
+          src="{{ section.settings.image_mbl | img_url: 'master' }}"
+          alt="{{ section.settings.image_mbl.alt | escape }}"style = "min-width:100%; ">
+      </div>
+      
+      <div class="centered slde-centered slde-{{ section.settings.text_alightment }}"> 
+        {% if section.settings.heading != blank %}
+        	<h2 class="SectionHeader__Heading Heading u-h1">{{section.settings.heading}}</h2>
+        {% endif %}
+        
+        {% if section.settings.description != blank %}
+        	<div class="SectionHeader__Description">
+                <p>{{section.settings.description}}</p>
+            </div>
+        {% endif %}
+        
+        {% if section.settings.link != blank and section.settings.linktext != blank %}
+        	<a class = "btn" href = "{{section.settings.link}}">{{section.settings.linktext}}</a> 
+        {% endif %}
+        
+      </div>
+      
+	</div> 
+
+</div>  
+
+
+{% schema %}
+{
+  "name": "Image Hero",
+  "settings": [
+       {
+          "id": "overlay",
+          "type": "checkbox",
+       	   "label": "Enable image overlay"
+        },
+{
+          "id": "overlay_color",
+          "type": "color",
+       	   "label": "OverlayColor",
+		  "default": "#0d1122"
+        },
+		{
+          "id": "color",
+          "type": "color",
+       	   "label": "Overlay Text Color",
+		  "default": "#000"
+        },
+		{
+		"type": "header",
+       	   "content": "Button Background and Text Color"
+		},
+		{
+          "id": "color_btn",
+          "type": "color",
+       	   "label": "Button Text Color",
+		  "default": "#126ce9"
+        },
+		{
+          "id": "color_border",
+          "type": "color",
+       	   "label": "Button Border color",
+		  "default": "#126ce9"
+        },
+		{
+          "id": "color_bg",
+          "type": "color",
+       	   "label": "Button Background Color",
+		  "default": "#fff"
+        },
+		{
+          "id": "color_btn_hover",
+          "type": "color",
+       	   "label": "Button Hover Text Color",
+		  "default": "#fff"
+        },
+		{
+          "id": "color_bg_hover",
+          "type": "color",
+       	   "label": "Button Hover Background",
+		  "default": "#126ce9"
+        },
+		
+		{
+          "id": "color_border_hover",
+          "type": "color",
+       	   "label": "Button Hover Border Color",
+		  "default": "#126ce9"
+        },
+        {
+          "id": "linktext",
+          "type": "text",
+          "label": "Link Text",
+          "default": "Click here"
+        },
+		{
+          "id": "heading",
+          "type": "text",
+          "label": "Heading",
+          "default": "Träume werden war"
+        },
+		{
+          "id": "description",
+          "type": "textarea",
+          "label": "Heading",
+          "default": "<p>Halte deine Glücksmomente in deinem persönlichem Kunstwerk fest.</p>"
+        },
+		{
+	"type": "select",
+	"id": "text_alightment",
+	"options": [
+	{ "value": "left", "label": "Left"},
+	{ "value": "center", "label": "Center"},
+	{ "value": "right", "label": "right"}
+	],
+	"label": "Description and button alignment"
+	},
+		{
+		  "id": "image",
+          "type": "image_picker",
+          "label": "Add Overlay Desktop Image"
+		},
+		{
+		  "id": "image_mbl",
+          "type": "image_picker",
+          "label": "Add Overlay Mobile Image",
+		  "info": "Mobile devices have less width so upload an image for mobile devices with less width and more height. "
+		}
+      
+    
+  ],
+  
+  "presets": [
+    {
+      "name": "Image Hero",
+      "category": "Image"
+    }
+  ]
+}
+{% endschema %}
